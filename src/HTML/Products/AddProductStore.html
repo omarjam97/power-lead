@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="p-6 bg-gray-100">
+    <h2 class="text-xl font-semibold mb-4">Add Store Product</h2>
+    <form id="storeProductForm" class="space-y-4">
+      <div>
+        <label for="storeId" class="block text-sm font-medium text-gray-700"
+          >Store:</label
+        >
+        <select
+          id="storeId"
+          name="storeId"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        >
+          <option value="">Select Store</option>
+          <? for (let product of stores) { ?>
+            <option value="<?= product.id ?>"><?= product.name ?></option>
+            <? } ?>
+        </select>
+        <span id="storeError" class="text-red-500 text-sm hidden"
+          >Please select a store.</span
+        >
+      </div>
+
+      <div>
+        <label for="productId" class="block text-sm font-medium text-gray-700"
+          >Product:</label
+        >
+        <select
+          id="productId"
+          name="productId"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        >
+          <option value="">Select Product</option>
+          <? for (let product of products) { ?>
+          <option value="<?= product.id ?>"><?= product.name ?></option>
+          <? } ?>
+        </select>
+        <span id="productError" class="text-red-500 text-sm hidden"
+          >Please select a product.</span
+        >
+      </div>
+
+      <div>
+        <label
+          for="productStoreId"
+          class="block text-sm font-medium text-gray-700"
+          >Product Store ID:</label
+        >
+        <input
+          type="text"
+          id="productStoreId"
+          name="productStoreId"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        />
+        <span id="productStoreIdError" class="text-red-500 text-sm hidden"
+          >Product Store ID is required.</span
+        >
+      </div>
+
+      <div id="formStatus" class="text-sm hidden"></div>
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        id="submitButton"
+      >
+        Add Store Product
+      </button>
+    </form>
+
+    <script>
+      const form = document.getElementById("storeProductForm");
+      const storeIdInput = document.getElementById("storeId");
+      const productIdInput = document.getElementById("productId");
+      const productStoreIdInput = document.getElementById("productStoreId");
+
+      const storeError = document.getElementById("storeError");
+      const productError = document.getElementById("productError");
+      const productStoreIdError = document.getElementById(
+        "productStoreIdError"
+      );
+      const formStatus = document.getElementById("formStatus");
+      const submitButton = document.getElementById("submitButton");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        submitButton.disabled = true;
+
+        let isValid = true;
+
+        if (storeIdInput.value.trim() === "") {
+          storeError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          storeError.classList.add("hidden");
+        }
+
+        if (productIdInput.value.trim() === "") {
+          productError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          productError.classList.add("hidden");
+        }
+
+        if (productStoreIdInput.value.trim() === "") {
+          productStoreIdError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          productStoreIdError.classList.add("hidden");
+        }
+
+        if (!isValid) {
+          submitButton.disabled = false;
+          return;
+        }
+
+        formStatus.textContent = "Creating Store Product...";
+        formStatus.classList.remove("hidden", "text-red-500", "text-green-500");
+        formStatus.classList.add("text-gray-500");
+
+        google.script.run
+          .withSuccessHandler((result) => {
+            if (result.success) {
+              formStatus.textContent = result.message;
+              formStatus.classList.remove("text-gray-500");
+              formStatus.classList.add("text-green-500");
+              setTimeout(() => google.script.host.close(), 1000);
+            } else {
+              formStatus.textContent = result.message;
+              formStatus.classList.remove("text-gray-500");
+              formStatus.classList.add("text-red-500");
+              submitButton.disabled = false;
+            }
+          })
+          .withFailureHandler((error) => {
+            formStatus.textContent = "An unexpected error occurred: " + error;
+            formStatus.classList.remove("text-gray-500");
+            formStatus.classList.add("text-red-500");
+            submitButton.disabled = false;
+          })
+          .createStoreProduct({
+            storeId: storeIdInput.value,
+            productId: productIdInput.value,
+            productStoreId: productStoreIdInput.value,
+          });
+      });
+    </script>
+  </body>
+</html>

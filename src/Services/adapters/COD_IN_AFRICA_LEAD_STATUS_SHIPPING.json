@@ -1,0 +1,107 @@
+{
+    "content": {
+        "results": [
+            {
+                "date": "2024-11-13T16:13:26.000Z",
+                "status": "processed",
+                "updateType": "multiple",
+                "isDeleted": null,
+                "_id": "6734d026741a0b0552cce9c8",
+                "ip": "41.251.22.78",
+                "user": "659d275bcf4f67008585c8d8",
+                "shipping": "6733213b49f18262737e20f6",
+                "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                "details": [
+                    {
+                        "product": "671a3a0a09133a109f2edea2",
+                        "_id": "673320d049f18262737e1988"
+                    }
+                ],
+                "comment": "",
+                "__v": 0
+            },
+            {
+                "date": "2024-11-13T07:56:00.000Z",
+                "status": "paid",
+                "updateType": "multiple",
+                "isDeleted": null,
+                "_id": "67345b92ba3326c9f5a25e48",
+                "ip": "41.85.181.8",
+                "user": "6501d2c7e6a2423a05fbc9af",
+                "shipping": "6733213b49f18262737e20f6",
+                "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                "details": [
+                    {
+                        "product": "671a3a0a09133a109f2edea2",
+                        "_id": "673320d049f18262737e1988"
+                    }
+                ],
+                "comment": "",
+                "__v": 0
+            },
+            {
+                "date": "2024-11-12T20:42:52.000Z",
+                "status": "delivered",
+                "updateType": "multiple",
+                "isDeleted": null,
+                "_id": "6733bdcc31704bbfb73384a0",
+                "ip": "41.85.181.8",
+                "user": "6501d2c7e6a2423a05fbc9af",
+                "shipping": "6733213b49f18262737e20f6",
+                "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                "details": [
+                    {
+                        "product": "671a3a0a09133a109f2edea2",
+                        "_id": "673320d049f18262737e1988"
+                    }
+                ],
+                "comment": "Shipping delivered",
+                "__v": 0
+            },
+            {
+                "date": "2024-11-12T09:44:43.000Z",
+                "status": "shipped",
+                "updateType": "multiple",
+                "isDeleted": null,
+                "_id": "6733238b49f18262737e4858",
+                "ip": "41.85.181.8",
+                "user": "663cdf675bcbca10a088e758",
+                "shipping": "6733213b49f18262737e20f6",
+                "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                "details": [
+                    {
+                        "product": "671a3a0a09133a109f2edea2",
+                        "_id": "673320d049f18262737e1988"
+                    }
+                ],
+                "comment": "",
+                "__v": 0
+            },
+            {
+                "date": "2024-11-12T09:35:52.000Z",
+                "status": "prepared",
+                "updateType": "multiple",
+                "isDeleted": null,
+                "_id": "6733217849f18262737e2433",
+                "ip": "41.85.181.8",
+                "user": "64ab16eb21ce1ca6b17b4868",
+                "shipping": "6733213b49f18262737e20f6",
+                "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                "details": [
+                    {
+                        "product": "671a3a0a09133a109f2edea2",
+                        "_id": "673320d049f18262737e1988"
+                    }
+                ],
+                "comment": "",
+                "__v": 0
+            }
+        ],
+        "total": 5,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1
+    },
+    "status": 200,
+    "headers": []
+}

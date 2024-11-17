@@ -1,0 +1,217 @@
+{
+    "content": {
+        "customer": {
+            "fullName": "Test User",
+            "city": "Test City",
+            "phone": "1234567890",
+            "address": "Test Address 1 Test Address 2",
+            "shippingAddress": "Test Address 1 Test Address 2",
+            "country": "BF"
+        },
+        "remind": null,
+        "isReminded": false,
+        "totalFees": 0,
+        "processedPrice": 0,
+        "statusCallcenter": "5fd72eedf8ffbe2f20e5118a",
+        "postsTeam": [],
+        "lastUnreachedDate": null,
+        "unreachedPerDay": 0,
+        "unreachedBySize": 0,
+        "createdAt": "2024-11-13T18:15:00.000Z",
+        "updatedAt": "2024-11-13T18:15:00.000Z",
+        "paidAt": null,
+        "processedAt": null,
+        "deliveredAt": "2024-11-13T17:59:33.143Z",
+        "startDate": "2024-11-13T17:59:33.143Z",
+        "isRefunded": false,
+        "isCancelled": false,
+        "comment": null,
+        "validated_status": null,
+        "is_transfere": 1,
+        "upsel": false,
+        "quantity_appseller": 0,
+        "isDeleted": null,
+        "_id": "6734eca4428a797262dddcd3",
+        "seller": {
+            "identity": {
+                "isIdentity": false,
+                "status": "awaiting validation",
+                "selfie": "https://storeno.b-cdn.net/codinafrica-v1/8-2024/1722617599890.jpeg",
+                "identity": "https://storeno.b-cdn.net/codinafrica-v1/8-2024/1722617600634.jpeg"
+            },
+            "isUpdate": true,
+            "status": "active",
+            "accountType": [
+                "seller",
+                "affiliate"
+            ],
+            "type": "Seller",
+            "isAtlasSourcing": false,
+            "disabledCountries": [],
+            "source": null,
+            "createdAt": "2024-08-02T16:35:29.000Z",
+            "updatedAt": "2024-11-08T12:11:49.000Z",
+            "isDeleted": null,
+            "_id": "66ad0ad1eec6b5a8ce93bf2c",
+            "fullName": "Mohamed Aazibou",
+            "phone": "+212708840875",
+            "sous_warehouses": [],
+            "notifications": [
+                {
+                    "type": "system",
+                    "countries": [
+                        "TG"
+                    ],
+                    "vue": true,
+                    "rtl": true,
+                    "isPopup": false,
+                    "createdAt": "2024-11-13T10:01:33.134Z",
+                    "_id": "673484704b6fc218d7d3c636",
+                    "text": "<p>السلام ليكم 👋🏻</p><p><br></p><p>نود إعلامكم بأن هناك مشكلة تقنية في دولة التوغو 🇹🇬، مما أدى إلى توقف مؤقت في عمليات تأكيد الطلبيات وإرسالها. يجري حالياً العمل على معالجة هذا الخلل.</p><p><br></p><p>نشكركم على تفهمكم ونعتذر عن أي تأخير قد يسببه هذا الأمر 🙏</p><p><br></p>"
+                }
+            ],
+            "prefixs": [],
+            "accountManagers": [
+                {
+                    "_id": "6702f36165aa5a8b7caf5dae",
+                    "fullName": "Meryam account manager"
+                }
+            ],
+            "__v": 0,
+            "company": "Beautina",
+            "rib": "230825283412321101090096",
+            "username": "Mohamedaazibou",
+            "paymentMethod": {
+                "type": "wise",
+                "wiseType": "",
+                "accountType": "",
+                "accountHolder": "",
+                "accountNumber": null,
+                "routingNumber": null,
+                "email": null,
+                "country": null,
+                "zipCode": "",
+                "city": "",
+                "address": "",
+                "state": ""
+            }
+        },
+        "id": "TEST_YGOGu",
+        "details": [
+            {
+                "warehouseParent": null,
+                "_id": "6734eca4428a797262dddcd4",
+                "quantity": 1,
+                "unitPrice": 19880,
+                "product": {
+                    "quantity": {
+                        "inStock": 64,
+                        "defective": 0,
+                        "total": 70
+                    },
+                    "code": [],
+                    "price": 0,
+                    "qteChange": 0,
+                    "isDeleted": null,
+                    "defectiveVideoUrl": null,
+                    "type": "normal",
+                    "warehouses": [],
+                    "visibility": "private",
+                    "_id": "66ad10e9eec6b5a8ce941881",
+                    "name": "Crème Rètinol ANTI AGE",
+                    "description": "Crème Rètinol ANTI AGE femme et homme",
+                    "details": [
+                        {
+                            "quantity": {
+                                "total": 33,
+                                "inStock": 31,
+                                "defective": 0
+                            },
+                            "affiliate": {
+                                "confirmationRate": 0,
+                                "deliveryRate": 0
+                            },
+                            "outOfStock": false,
+                            "price": null,
+                            "commission": 0,
+                            "upsells": [
+                                {
+                                    "quantity": 2,
+                                    "price": 29000,
+                                    "commission": 0,
+                                    "_id": "66ad1142eec6b5a8ce941b1e"
+                                },
+                                {
+                                    "quantity": 3,
+                                    "price": 39000,
+                                    "commission": 0,
+                                    "_id": "66ad1142eec6b5a8ce941b1f"
+                                }
+                            ],
+                            "_id": "66ad10e9eec6b5a8ce941882",
+                            "warehouse": "61dda392a7748204f3f085c8",
+                            "country": "TG",
+                            "currency": "XOF",
+                            "place": "PK11"
+                        },
+                        {
+                            "quantity": {
+                                "total": 37,
+                                "inStock": 33,
+                                "defective": 0
+                            },
+                            "affiliate": {
+                                "confirmationRate": 0,
+                                "deliveryRate": 0
+                            },
+                            "outOfStock": false,
+                            "price": null,
+                            "commission": 0,
+                            "upsells": [],
+                            "_id": "66ae1beb58c24a55de7e77bb",
+                            "warehouse": "61855674f55c83e0f2bb8543",
+                            "country": "BF",
+                            "place": "PK91",
+                            "currency": "XOF"
+                        }
+                    ],
+                    "verificationLink": "https://ziyarrashop.com/products/creme-anti-age",
+                    "outOfStock": false,
+                    "picture": "https://storeno.b-cdn.net/codinafrica-v1/8-2024/1722618086089.png",
+                    "seller": "66ad0ad1eec6b5a8ce93bf2c",
+                    "id_v2": "COD08398",
+                    "id": "COD8398",
+                    "createdAt": "2024-08-02T17:01:29.474Z",
+                    "__v": 0,
+                    "Upp": true
+                }
+            }
+        ],
+        "totalPrice": 19880,
+        "status": {
+            "fees": 0,
+            "isDeleted": null,
+            "_id": "654cf942b5a394f8280bcb0c",
+            "name": "double",
+            "color": "#000000",
+            "__v": 0
+        },
+        "date": "2024-11-13T18:15:00.000Z",
+        "oldDetails": [
+            {
+                "_id": "6734eca4428a797262dddcd5",
+                "quantity": 1,
+                "unitPrice": 19880,
+                "product": "66ad10e9eec6b5a8ce941881"
+            }
+        ],
+        "skippedBy": [],
+        "remindBy": [],
+        "unreachedBy": [],
+        "sameOrderUnreached": [],
+        "random": 0.354460056956309,
+        "__v": 0
+    },
+    "status": 200,
+    "headers": []
+}

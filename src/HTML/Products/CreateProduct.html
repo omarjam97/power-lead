@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <script src="https://cdn.tailwindcss.com"></script> </head>
+<body class="p-6 bg-gray-100">
+
+  <h2 class="text-xl font-semibold mb-4">Add New Product</h2>
+
+  <form id="productForm" class="space-y-4">
+    <div>
+      <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+      <input type="text" id="productName" name="productName" class="mt-1 p-2 border rounded w-full" required>
+      <span id="nameError" class="text-red-500 text-sm hidden">Product name is required.</span>
+    </div>
+
+
+    <div id="formStatus" class="text-sm hidden"> </div>  </div> <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="submitButton">
+      Add Product
+    </button>
+
+
+  </form>
+
+  <script>
+    const form = document.getElementById('productForm');
+    const productNameInput = document.getElementById('productName');
+    const nameError = document.getElementById('nameError');
+    const formStatus = document.getElementById('formStatus');
+    const submitButton = document.getElementById('submitButton');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitButton.disabled = true;
+
+      // Client-side validation
+      if (productNameInput.value.trim() === '') {
+        nameError.classList.remove('hidden');
+        submitButton.disabled = false; // Re-enable the button if validation fails
+        return;
+      } else {
+        nameError.classList.add('hidden');
+      }
+
+      formStatus.textContent = "Creating product...";
+      formStatus.classList.remove('hidden');
+      formStatus.classList.remove('text-red-500', 'text-green-500');
+      formStatus.classList.add('text-gray-500');
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          if (result.success) {
+            formStatus.textContent = result.message;
+            formStatus.classList.remove('text-gray-500');
+            formStatus.classList.add('text-green-500');
+            setTimeout(() => google.script.host.close(), 1000);
+          } else {
+            formStatus.textContent = result.message;
+            formStatus.classList.remove('text-gray-500');
+            formStatus.classList.add('text-red-500');
+            submitButton.disabled = false;
+          }
+        })
+        .withFailureHandler(function(error) {
+          formStatus.textContent = "An unexpected error occurred: " + error;
+          formStatus.classList.remove('text-gray-500');
+          formStatus.classList.add('text-red-500');
+          submitButton.disabled = false;
+        })
+        .createProduct(productNameInput.value);
+    });
+  </script>
+</body>
+</html>

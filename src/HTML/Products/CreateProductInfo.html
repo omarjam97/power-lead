@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="p-6 bg-gray-100">
+    <h2 class="text-xl font-semibold mb-4">Add Product Info</h2>
+
+    <form id="productInfoForm" class="space-y-4">
+      <div>
+        <label for="productId" class="block text-sm font-medium text-gray-700"
+          >Product:</label
+        >
+        <select
+          id="productId"
+          name="productId"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        >
+          <option value="">Select Product</option>
+          <? for (let product of products) { ?>
+          <option value="<?= product.id ?>"><?= product.name ?></option>
+          <? } ?>
+        </select>
+        <span id="productError" class="text-red-500 text-sm hidden"
+          >Please select a product.</span
+        >
+      </div>
+
+      <div>
+        <label for="sku" class="block text-sm font-medium text-gray-700"
+          >SKU:</label
+        >
+        <input
+          type="text"
+          id="sku"
+          name="sku"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        />
+        <span id="skuError" class="text-red-500 text-sm hidden"
+          >SKU is required.</span
+        >
+      </div>
+
+      <div>
+        <label for="service" class="block text-sm font-medium text-gray-700"
+          >Service:</label
+        >
+        <select
+          id="service"
+          name="service"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        >
+          <option value="">Select Service</option>
+          <? for (let service of services) { ?>
+          <option value="<?= service.id ?>"><?= service.name ?></option>
+          <? } ?>
+        </select>
+        <span id="serviceError" class="text-red-500 text-sm hidden"
+          >Please select a service.</span
+        >
+      </div>
+
+      <div>
+        <label for="serviceMeta" class="block text-sm font-medium text-gray-700"
+          >Service Meta:</label
+        >
+        <input
+          type="text"
+          id="serviceMeta"
+          name="serviceMeta"
+          class="mt-1 p-2 border rounded w-full"
+        />
+      </div>
+
+      <div>
+        <label for="country" class="block text-sm font-medium text-gray-700"
+          >Country:</label
+        >
+        <select
+          id="country"
+          name="country"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        >
+          <option value="">Select Country</option>
+          <? for (let country of countries) { ?>
+          <option value="<?= country ?>"><?= country ?></option>
+          <? } ?>
+        </select>
+        <span id="countryError" class="text-red-500 text-sm hidden"
+          >Please select a country.</span
+        >
+      </div>
+
+      <div>
+        <label for="price" class="block text-sm font-medium text-gray-700"
+          >Price:</label
+        >
+        <input
+          type="number"
+          step="0.01"
+          id="price"
+          name="price"
+          class="mt-1 p-2 border rounded w-full"
+          required
+        />
+        <span id="priceError" class="text-red-500 text-sm hidden"
+          >Price is required.</span
+        >
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <input type="checkbox" id="testMode" name="testMode" class="rounded">
+        <label for="testMode" class="text-sm font-medium text-gray-700">Test Mode</label>
+      </div>
+  
+      <div class="flex items-center space-x-2">
+        <input type="checkbox" id="active" name="active" class="rounded" checked>
+        <label for="active" class="text-sm font-medium text-gray-700">Active</label>
+      </div>
+  
+      <div id="formStatus" class="text-sm hidden"></div>
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        id="submitButton"
+      >
+        Add Product Info
+      </button>
+    </form>
+
+    <script>
+      // ... (client-side validation and form submission logic)
+      const form = document.getElementById("productInfoForm");
+      const productIdInput = document.getElementById("productId");
+      const skuInput = document.getElementById("sku");
+      const serviceInput = document.getElementById("service");
+      const serviceMetaInput = document.getElementById("serviceMeta");
+      const countryInput = document.getElementById("country");
+      const priceInput = document.getElementById("price");
+
+      const productError = document.getElementById("productError");
+      const skuError = document.getElementById("skuError");
+      const serviceError = document.getElementById("serviceError");
+      const countryError = document.getElementById("countryError");
+      const priceError = document.getElementById("priceError");
+      const formStatus = document.getElementById("formStatus");
+      const submitButton = document.getElementById("submitButton");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        submitButton.disabled = true; // Disable the button immediately
+
+        let isValid = true; // Validation flag
+
+        // Product Validation
+        if (productIdInput.value.trim() === "") {
+          productError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          productError.classList.add("hidden");
+        }
+
+        // SKU Validation
+        if (skuInput.value.trim() === "") {
+          skuError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          skuError.classList.add("hidden");
+        }
+
+        // Service Validation
+        if (serviceInput.value.trim() === "") {
+          serviceError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          serviceError.classList.add("hidden");
+        }
+
+        // Country Validation
+        if (countryInput.value.trim() === "") {
+          countryError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          countryError.classList.add("hidden");
+        }
+
+        // Price Validation
+        if (
+          priceInput.value.trim() === "" ||
+          isNaN(parseFloat(priceInput.value))
+        ) {
+          priceError.classList.remove("hidden");
+          isValid = false;
+        } else {
+          priceError.classList.add("hidden");
+        }
+
+        if (!isValid) {
+          submitButton.disabled = false; // Re-enable button if validation fails
+          return;
+        }
+
+        formStatus.textContent = "Creating Product Info...";
+        formStatus.classList.remove("hidden", "text-red-500", "text-green-500");
+        formStatus.classList.add("text-gray-500");
+
+        google.script.run
+          .withSuccessHandler((result) => {
+            if (result.success) {
+              formStatus.textContent = result.message;
+              formStatus.classList.remove("text-gray-500");
+              formStatus.classList.add("text-green-500");
+              setTimeout(() => google.script.host.close(), 1000);
+            } else {
+              formStatus.textContent = result.message;
+              formStatus.classList.remove("text-gray-500");
+              formStatus.classList.add("text-red-500");
+              submitButton.disabled = false;
+            }
+          })
+          .withFailureHandler((error) => {
+            formStatus.textContent = "An unexpected error occurred: " + error;
+            formStatus.classList.remove("text-gray-500");
+            formStatus.classList.add("text-red-500");
+            submitButton.disabled = false;
+          })
+          .createProductInfo({
+            productId: productIdInput.value,
+            sku: skuInput.value,
+            service: serviceInput.value,
+            serviceMeta: serviceMetaInput.value,
+            country: countryInput.value,
+            price: priceInput.value,
+            testMode: document.getElementById('testMode').checked,
+            active: document.getElementById('active').checked
+          });
+      });
+    </script>
+  </body>
+</html>

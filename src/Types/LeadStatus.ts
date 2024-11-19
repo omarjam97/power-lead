@@ -20,6 +20,7 @@ export enum COD_IN_AFRICA {
   //CALL CENTER STATUS
   PENDING = "Pending",
   UNREACHED = "Unreached",
+  TO_REMIND = "ToRemind",
   OUTOFSTOCK_CALL_CENTER = "OutOfStock",
   A_TRANSFERER = "A transférer",
   

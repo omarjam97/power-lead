@@ -132,6 +132,7 @@ function TRACK_LEADS() {
       AVLeadStatus.UNREACHED,
       AVLeadStatus.OUTOFSTOCK_CALL_CENTER,
       AVLeadStatus.A_TRANSFERER,
+      AVLeadStatus.TO_REMIND,
 
       //SHIPPING
       AVLeadStatus.CONFIRMED,
@@ -148,7 +149,7 @@ function TRACK_LEADS() {
       AVLeadStatus.REMIND,
       AVLeadStatus.UNREACHHABLE,
     ],
-    3600000
+    21600000
   ).map((lead) => {
     if (lead.Service) Services.current[lead.Service].trackOrder(lead);
   });

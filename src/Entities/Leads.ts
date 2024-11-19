@@ -13,6 +13,7 @@ import Client from "./Client";
 import Entity from "./Entity";
 import GLogger from "../Monitor/GLogger";
 import StoreProducts from "./Products/StoreProducts";
+import ProductInfo from "./Products/ProductInfo";
 
 class Leads extends Entity {
   static context = "LEAD_SERVICE";
@@ -28,6 +29,8 @@ class Leads extends Entity {
   public Country: string;
   public PaymentMethod: string;
   public Cart: Cart;
+  public ProductStoreID: string | null;
+  public ProductID: string | null;
   public Total: number;
   public Currency: string;
   public Service: currentServices | null = null;
@@ -51,6 +54,8 @@ class Leads extends Entity {
     "Country",
     "PaymentMethod",
     "Cart",
+    "ProductStoreID",
+    "ProductID",
     "Total",
     "Currency",
     "Service",
@@ -71,6 +76,8 @@ class Leads extends Entity {
     Country: string;
     PaymentMethod: string;
     Cart: Cart;
+    ProductStoreID: string | null;
+    ProductID: string | null;
     Total: number;
     Currency: string;
     Service: currentServices | null;
@@ -87,6 +94,8 @@ class Leads extends Entity {
     this.Country = options.Country;
     this.PaymentMethod = options.PaymentMethod;
     this.Cart = options.Cart;
+    this.ProductID = options.ProductID;
+    this.ProductStoreID = options.ProductStoreID;
     this.Total = options.Total;
     this.Currency = options.Currency;
     this.Service = options.Service;
@@ -107,6 +116,8 @@ class Leads extends Entity {
       this.Country,
       this.PaymentMethod,
       this.Cart.serialize(),
+      this.ProductStoreID,
+      this.ProductID,
       this.Total,
       this.Currency,
       this.Service,
@@ -129,16 +140,18 @@ class Leads extends Entity {
       Country: data[5],
       PaymentMethod: data[6],
       Cart: Cart.unserialize(data[7]),
-      Total: parseInt(data[8]),
-      Currency: data[9],
-      Service: data[10] as currentServices,
-      ServiceMetaData: data[11],
-      Attemps: parseInt(data[15]),
-      CreatedAt: parseInt(data[16]),
+      ProductStoreID: data[8],
+      ProductID: data[9],
+      Total: parseInt(data[10]),
+      Currency: data[11],
+      Service: data[12] as currentServices,
+      ServiceMetaData: data[13],
+      Attemps: parseInt(data[17]),
+      CreatedAt: parseInt(data[18]),
     });
-    lead.currentStatus = data[12] as LeadsStatus;
-    lead.statusTime = parseInt(data[13]); // Parse date and store as timestamp
-    lead.statuses = JSON.parse(data[14]);
+    lead.currentStatus = data[14] as LeadsStatus;
+    lead.statusTime = parseInt(data[15]); // Parse date and store as timestamp
+    lead.statuses = JSON.parse(data[16]);
     return lead;
   }
 
@@ -195,6 +208,8 @@ class Leads extends Entity {
         ServiceMetaData: null,
         Attemps: 0,
         CreatedAt: options.Date,
+        ProductID: null,
+        ProductStoreID: null,
       });
 
       sheet.appendRow(lead.toRow());
@@ -254,6 +269,11 @@ class Leads extends Entity {
         if (!existingLead.Service) {
           existingLead.Service = this.Service;
         }
+
+        if(!existingLead.ProductID && !existingLead.ProductStoreID){
+          existingLead.ProductID = this.ProductID;
+          existingLead.ProductStoreID = this.ProductStoreID;
+        }
         if (this.ServiceMetaData) {
           existingLead.ServiceMetaData = this.ServiceMetaData;
         }
@@ -264,6 +284,8 @@ class Leads extends Entity {
           existingLead.statusTime = this.statusTime;
           existingLead.statuses = this.statuses;
         }
+
+        
 
         sheet
           .getRange(this.Index, 1, 1, existingLead.toRow().length)
@@ -393,8 +415,8 @@ class Leads extends Entity {
         return [];
       }
       const data = ss
-      .getRange(2, 1, lastRow - 1, Leads.header.length)
-      .getValues();
+        .getRange(2, 1, lastRow - 1, Leads.header.length)
+        .getValues();
 
       const statusColumnIndex = Leads.header.indexOf("CurrentStatus");
       const statusChangedAtColumnIndex =
@@ -434,7 +456,7 @@ class Leads extends Entity {
       }
 
       let service: currentServices | null = null;
-
+      const  productInfos : Array<ProductInfo> = [];
       this.Cart.products.forEach((product) => {
         const productInfo = StoreProducts.getProduct(
           this.Store,
@@ -476,6 +498,8 @@ class Leads extends Entity {
 
           throw new Error("");
         }
+
+        productInfos.push(productInfo[0])
       });
 
       if (!service || !(service in currentServices)) {
@@ -485,6 +509,7 @@ class Leads extends Entity {
         });
         throw new Error("");
       }
+
       this.updateSystemStatus({
         current: AVLeadStatus.VALIDE,
         note: "",
@@ -492,6 +517,8 @@ class Leads extends Entity {
       this.Service = service as currentServices;
       this.ServiceMetaData =
         Services.current[service as currentServices].getDefaultMetaData();
+      this.ProductStoreID = this.Cart.products[0].productId;
+      this.ProductID = productInfos[0].PRODUCT_ID;
       this.save();
     } catch (e) {
       if (e?.message != "") {

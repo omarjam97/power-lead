@@ -151,6 +151,7 @@ export default class StoreProducts {
       this.TOKEN,
     ];
   }
+
   static getByStoreAndProductIds(
     store: string,
     productStoreId: string,
@@ -181,6 +182,27 @@ export default class StoreProducts {
     }
 
     return null; // Not found
+  }
+
+  static detectToken(adName: string): { store: string; productStoreId: string } | null {
+    const ss = StoreProducts.getSheet();
+    const lastRow = ss.getLastRow();
+    
+    if (lastRow <= 1) return null; // No data in the sheet
+
+    const data = ss.getRange(2, 1, lastRow - 1, StoreProducts.header.length).getValues();
+
+    for (const row of data) {
+      const token = row[4]; // Token is in the 5th column (index 4)
+      if (adName.includes(token)) {
+        return {
+          store: row[1],      // Store is in the 2nd column (index 1)
+          productStoreId: row[2] // ProductStoreId is in the 3rd column (index 2)
+        };
+      }
+    }
+
+    return null; // Token not found in any ad name
   }
 }
 

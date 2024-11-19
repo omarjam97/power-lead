@@ -150,6 +150,7 @@ async function fetchAdSpendByCountry(
                 data.data[index]["results"] = d.actions.find((e:any) => e.action_type == "purchase")?.value || 0
                 data.data[index]["cost"] = d.cost_per_action_type.find((e:any) => e.action_type == "purchase")?.value || 0
             }
+            console.log(d.cost_per_action_type);
         }
         const { actions,cost_per_action_type, ...newData } = d;
         data.data[index] = newData;

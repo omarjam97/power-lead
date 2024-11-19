@@ -4,6 +4,9 @@ import ProductInfo from "./Entities/Products/ProductInfo";
 import StoreProducts from "./Entities/Products/StoreProducts";
 import Stores from "./Entities/Stores";
 import { SS } from "./Global";
+import FB_ADS_METRICS from "./Marketing/FB_ADS/FB_ADS_METRICS ";
+import FB_ADS_METRICS_PRE from "./Marketing/FB_ADS/FB_ADS_METRICS_PRE";
+import { FB_ADS_TRIGGERS } from "./Marketing/FB_ADS/FB_ADS_TRIGGERS";
 import GLogger from "./Monitor/GLogger";
 import Services, { SERVICES_TRIGGERS } from "./Services/services";
 import Arrays from "./Utils/arrays";
@@ -16,11 +19,13 @@ const SHEETS = [
   ProductInfo,
   Services,
   GLogger,
+  FB_ADS_METRICS,
+  FB_ADS_METRICS_PRE,
 ];
 
-const TRIGGERS = [LEADS_TRIGGERS, SERVICES_TRIGGERS];
+const TRIGGERS = [LEADS_TRIGGERS, SERVICES_TRIGGERS, FB_ADS_TRIGGERS];
 
-function setup() {
+function setupSheet() {
   //SHEETS SETUP
   SHEETS.forEach((Sheet) => {
     let sheet = SS.getSheetByName(Sheet.sheetName);
@@ -65,7 +70,9 @@ function setup() {
       .setDescription(`Protected by script - ${Sheet.sheetName}`)
       .addEditors([Session.getEffectiveUser().toString()]);
   });
+}
 
+function setupTriggers() {
   //TRIGGERS SETUP
   TRIGGERS.forEach((trigger) => {
     trigger();
